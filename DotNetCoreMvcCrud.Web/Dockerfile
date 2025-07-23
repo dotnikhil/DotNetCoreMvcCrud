@@ -4,7 +4,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY DotNetCoreMvcCrud.Web/DotNetCoreMvcCrud.Web.csproj 
+COPY DotNetCoreMvcCrud.Web/DotNetCoreMvcCrud.Web.csproj .
 RUN dotnet restore DotNetCoreMvcCrud.Web/DotNetCoreMvcCrud.Web.csproj
 
 COPY . .
