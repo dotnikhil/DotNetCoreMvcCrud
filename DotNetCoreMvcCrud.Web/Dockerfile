@@ -4,10 +4,9 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY DotNetCoreMvcCrud.Web/DotNetCoreMvcCrud.Web.csproj .
+COPY . .
 RUN dotnet restore DotNetCoreMvcCrud.Web/DotNetCoreMvcCrud.Web.csproj
 
-COPY . .
 RUN dotnet build DotNetCoreMvcCrud.Web/DotNetCoreMvcCrud.Web.csproj -o ./build
 
 FROM build AS publish
