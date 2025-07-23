@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: aws-class
+provisoner: ebs.csi.aws.com
+parameters:
+  type: gp2
+  fstype: ext4
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer

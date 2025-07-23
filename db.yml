@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+  namespace: db-namespace
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      lab: db
+  template:
+    metadata: 
+      labels:
+        lab: db
+    spec:
+      conatainers:
+        - name: db-con
+          image: mcr.microsoft.com/mssql/server:2019-latest
+          ports:
+            - containerPort: 1433
+          env: 
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: SA_PASSWORD
+              value: "secure-Random-P@ss-11234"
+          volumeMounts:
+            - name: db-vol
+              mountPath: /mnt/database
+      volumes:
+        name: db-vol
+        persistentVolumeClaim:
+          claimName: db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-service
+  namespace: db-namespace
+spec: 
+  selector:
+    lab: db
+  type: ClusterIP
+  ports:
+    - port: 1433
+      targetPort: 1433
+  
